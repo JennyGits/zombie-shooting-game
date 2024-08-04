@@ -125,6 +125,7 @@
             }
         }
     </style>
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
     <canvas id="gameCanvas"></canvas>
@@ -140,7 +141,7 @@
     <audio id="bgm" loop>
         <source src="bgm/bgm.mp3" type="audio/mpeg">
     </audio>
-<link rel="manifest" href="manifest.json">
+
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -793,18 +794,23 @@
                             drawGameOverScreen();
                         }
                     });
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
+
 
                     main();
                 </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('ServiceWorker registration failed: ', error);
+                });
+            });
+        }
+    </script>
                 </body>
                 </html>
                 </antArtifact>
